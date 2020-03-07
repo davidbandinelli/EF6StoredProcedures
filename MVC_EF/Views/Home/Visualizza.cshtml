@@ -1,0 +1,10 @@
+﻿@using MVC_EF.ViewModels
+@model GradeViewModel
+@{
+    ViewBag.Title = "About";
+}
+<h2>Elenco Voti Studente: @Model.StudentId</h2>
+@foreach (var voto in Model.ListaVoti) {
+    <p>Id Corso: @voto.IdCorso</p>
+    <p>Voto: @voto.Voto</p>
+}

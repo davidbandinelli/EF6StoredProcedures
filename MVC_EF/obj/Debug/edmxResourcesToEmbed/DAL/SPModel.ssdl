@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="StudentGrade">
+    <Key>
+      <PropertyRef Name="EnrollmentID" />
+    </Key>
+    <Property Name="EnrollmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseID" Type="int" Nullable="false" />
+    <Property Name="StudentID" Type="int" Nullable="false" />
+    <Property Name="Grade" Type="decimal" Precision="3" Scale="2" />
+  </EntityType>
+  <Function Name="DeleteStudentGrade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StudentID" Type="int" Mode="In" />
+    <Parameter Name="CourseID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetStudentGrades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StudentID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="InsertStudentGrade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StudentID" Type="int" Mode="In" />
+    <Parameter Name="CourseID" Type="int" Mode="In" />
+    <Parameter Name="Grade" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="UpdateStudentGrade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StudentID" Type="int" Mode="In" />
+    <Parameter Name="CourseID" Type="int" Mode="In" />
+    <Parameter Name="Grade" Type="decimal" Mode="In" />
+  </Function>
+  <EntityContainer Name="SchoolModelStoreContainer">
+    <EntitySet Name="StudentGrade" EntityType="Self.StudentGrade" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

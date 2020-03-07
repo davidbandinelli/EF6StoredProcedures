@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="SchoolEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="GetStudentGrades" EntitySet="StudentGrades" ReturnType="Collection(SchoolModel.StudentGrade)">
+      <Parameter Name="StudentID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="StudentGrades" EntityType="SchoolModel.StudentGrade" />
+  </EntityContainer>
+  <ComplexType Name="GetStudentGrades_Result">
+    <Property Type="Int32" Name="EnrollmentID" Nullable="false" />
+    <Property Type="Decimal" Name="Grade" Nullable="true" Precision="3" Scale="2" />
+    <Property Type="Int32" Name="CourseID" Nullable="false" />
+    <Property Type="Int32" Name="StudentID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="StudentGrade">
+    <Key>
+      <PropertyRef Name="EnrollmentID" />
+    </Key>
+    <Property Name="EnrollmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseID" Type="Int32" Nullable="false" />
+    <Property Name="StudentID" Type="Int32" Nullable="false" />
+    <Property Name="Grade" Type="Decimal" Precision="3" Scale="2" />
+  </EntityType>
+</Schema>
