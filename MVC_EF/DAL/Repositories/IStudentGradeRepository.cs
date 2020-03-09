@@ -7,9 +7,12 @@ using System.Web;
 namespace MVC_EF.DAL {
     public interface IStudentGradeRepository {
         IEnumerable<VotoStudente> GetStudentGrades(int studentId);
+        IEnumerable<VotoStudente> GetStudentGradesExt(int studentId);
         int InsertStudentGrade(VotoStudente vs);
         void EditStudentGrade(VotoStudente vs);
         void DeleteStudentGrade(VotoStudente vs);
+
+        VotoStudente GetVotoStudenteForEdit(int idToEdit);
 
     }
 }

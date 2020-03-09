@@ -28,6 +28,7 @@ namespace MVC_EF.DAL
         }
     
         public virtual DbSet<StudentGrade> StudentGrades { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
     
         public virtual ObjectResult<StudentGrade> GetStudentGrades(Nullable<int> studentID)
         {
@@ -45,6 +46,15 @@ namespace MVC_EF.DAL
                 new ObjectParameter("StudentID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StudentGrade>("GetStudentGrades", mergeOption, studentIDParameter);
+        }
+    
+        public virtual ObjectResult<GetStudentGrades2_Result> GetStudentGrades2(Nullable<int> studentID)
+        {
+            var studentIDParameter = studentID.HasValue ?
+                new ObjectParameter("StudentID", studentID) :
+                new ObjectParameter("StudentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetStudentGrades2_Result>("GetStudentGrades2", studentIDParameter);
         }
     }
 }

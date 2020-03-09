@@ -1,0 +1,12 @@
+﻿@using MVC_EF.ViewModels
+@model InsertGradeViewModel
+@{
+    ViewBag.Title = "Inserimento";
+}
+<h2>Inserimento</h2>
+@using (Html.BeginForm("Inserisci", "Home")) {
+    <p>Id Studente: @Html.TextBoxFor(m => m.IdStudente)</p>
+    <p>Id Corso: @Html.TextBoxFor(m => m.IdCorso)</p>
+    <p>Voto: @Html.TextBoxFor(m => m.Voto)</p>
+    <input type="submit" value="Salva" />
+}

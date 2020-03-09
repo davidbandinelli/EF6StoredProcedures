@@ -17,7 +17,8 @@ namespace MVC_EF.Controllers {
 
         public ActionResult Visualizza(int id = 1) {
             var repo = new StudentGradeRepository();
-            var gradeList = repo.GetStudentGrades(id);
+            //var gradeList = repo.GetStudentGrades(id);
+            var gradeList = repo.GetStudentGradesExt(id);
 
             var gradeVM = new GradeViewModel();
             gradeVM.StudentId = id;
@@ -28,23 +29,39 @@ namespace MVC_EF.Controllers {
             }
             return View(gradeVM);
         }
-
+        [HttpGet]
         public ActionResult Inserisci() {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Inserisci(InsertGradeViewModel vm) {
             var repo = new StudentGradeRepository();
             var vs = new VotoStudente();
-            vs.IdStudente = 3;
-            vs.IdCorso = 3;
-            vs.Voto = 3;
+            vs.IdStudente = vm.IdStudente;
+            vs.IdCorso = vm.IdCorso;
+            vs.Voto = vm.Voto;
             repo.InsertStudentGrade(vs);
             return RedirectToAction("Visualizza");
         }
 
-        public ActionResult Modifica() {
+        [HttpGet]
+        public ActionResult Modifica(int id) {
             var repo = new StudentGradeRepository();
             var vs = new VotoStudente();
-            vs.IdStudente = 3;
-            vs.IdCorso = 3;
-            vs.Voto = 4;
+            vs = repo.GetVotoStudenteForEdit(id);
+            var vmedit = new EditGradeViewModel();
+            vmedit = MySingleton.GetAutoMapperInstance().Map<EditGradeViewModel>(vs);
+            return View(vmedit);
+        }
+
+        [HttpPost]
+        public ActionResult Modifica(EditGradeViewModel vm) {
+            var repo = new StudentGradeRepository();
+            var vs = new VotoStudente();
+            vs.IdStudente = vm.IdStudente;
+            vs.IdCorso = vm.IdCorso;
+            vs.Voto = vm.Voto;
             repo.EditStudentGrade(vs);
             return RedirectToAction("Visualizza");
         }

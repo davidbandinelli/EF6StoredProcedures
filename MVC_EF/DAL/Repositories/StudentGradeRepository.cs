@@ -68,5 +68,42 @@ namespace MVC_EF.DAL {
             }
         }
 
+        public IEnumerable<VotoStudente> GetStudentGradesExt(int studentId) {
+            var listaVoti = new List<VotoStudente>();
+
+            using (var context = new SchoolEntities()) {
+
+                var studentGrades = context.GetStudentGrades2(studentId);
+                foreach (var sg in studentGrades) {
+                    var vs = MySingleton.GetAutoMapperInstance().Map<VotoStudente>(sg);
+                    // l'automapper sostituisce il codice sottostante
+                    /*
+                    var vs = new VotoStudente();
+                    vs.IdStudente = studentId;
+                    vs.IdCorso = sg.CourseID;
+                    vs.Voto = (decimal)sg.Grade;
+                    */
+                    vs.CognomeStudente = sg.StudentSurname;
+                    vs.NomeStudente = sg.StudentName;
+                    listaVoti.Add(vs);
+                }
+                return listaVoti;
+            }
+
+        }
+
+        public VotoStudente GetVotoStudenteForEdit(int idToEdit) {
+            using (var context = new SchoolEntities()) {
+                // per aggiornare un'entità dobbiamo prima "materializzarla" nel contesto EF
+                var studentGradeToUpdate = context.StudentGrades.Where(x => x.EnrollmentID == idToEdit).FirstOrDefault();
+                if (studentGradeToUpdate != null) {
+                    var vs = MySingleton.GetAutoMapperInstance().Map<VotoStudente>(studentGradeToUpdate);
+                    return vs;
+                } else {
+                    return null;
+                }
+            }
+
+        }
     }
 }

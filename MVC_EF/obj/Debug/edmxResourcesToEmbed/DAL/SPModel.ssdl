@@ -9,11 +9,26 @@
     <Property Name="StudentID" Type="int" Nullable="false" />
     <Property Name="Grade" Type="decimal" Precision="3" Scale="2" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'School.dbo.Students' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="StudentID" />
+      <PropertyRef Name="StudentName" />
+      <PropertyRef Name="StudentSurname" />
+    </Key>
+    <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="StudentSurname" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
   <Function Name="DeleteStudentGrade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="StudentID" Type="int" Mode="In" />
     <Parameter Name="CourseID" Type="int" Mode="In" />
   </Function>
   <Function Name="GetStudentGrades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StudentID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="GetStudentGrades2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="StudentID" Type="int" Mode="In" />
   </Function>
   <Function Name="InsertStudentGrade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -28,5 +43,12 @@
   </Function>
   <EntityContainer Name="SchoolModelStoreContainer">
     <EntitySet Name="StudentGrade" EntityType="Self.StudentGrade" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Students" EntityType="Self.Students" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Students].[StudentID] AS [StudentID], 
+    [Students].[StudentName] AS [StudentName], 
+    [Students].[StudentSurname] AS [StudentSurname]
+    FROM [dbo].[Students] AS [Students]</DefiningQuery>
+    </EntitySet>
   </EntityContainer>
 </Schema>
